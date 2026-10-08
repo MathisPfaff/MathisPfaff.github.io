@@ -3,6 +3,11 @@ const USERNAME = "MathisPfaff";
 const TOPIC = "portfolio";
 const MANUAL_REPOS = []; // e.g. ["my-game", "weather-app"]
 
+// Repos from other owners (organizations, classrooms), written as "owner/name".
+const EXTRA_REPOS = [
+  "DAE-GD-2025-2026/gameai-research-project-MathisPfaff"
+];
+
 // Extra info per repo (key = repo name). Both fields are optional.
 // Image paths are relative to your site, e.g. files in an "images" folder.
 const EXTRAS = {
