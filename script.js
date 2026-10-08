@@ -68,46 +68,59 @@ function setupCarousels() {
   });
 }
 
+async function fetchJson(url) {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`${res.status} ${res.statusText} for ${url}`);
+  return res.json();
+}
+
 async function loadProjects() {
+  const errors = [];
+  let repos = [];
+
+  // Your own repos
   try {
-    let repos;
     if (MANUAL_REPOS.length) {
       repos = await Promise.all(
-        MANUAL_REPOS.map(name =>
-          fetch(`https://api.github.com/repos/${USERNAME}/${name}`).then(r => r.json())
-        )
+        MANUAL_REPOS.map(name => fetchJson(`https://api.github.com/repos/${USERNAME}/${name}`))
       );
     } else {
-      const res = await fetch(`https://api.github.com/users/${USERNAME}/repos?per_page=100&sort=updated`);
-      const all = await res.json();
+      const all = await fetchJson(`https://api.github.com/users/${USERNAME}/repos?per_page=100&sort=updated`);
       repos = all.filter(r => !r.fork && r.topics && r.topics.includes(TOPIC));
     }
-
-    // Add repos owned by someone else (classroom/organization)
-    const others = await Promise.all(
-      EXTRA_REPOS.map(fullName =>
-        fetch(`https://api.github.com/repos/${fullName}`).then(r => r.json()).catch(() => null)
-      )
-    );
-    repos = repos.concat(others);
-
-    // Drop failed lookups (e.g. 404 or private repos) and duplicates
-    const seen = new Set();
-    repos = repos.filter(r => {
-      if (!r || !r.html_url || seen.has(r.html_url)) return false;
-      seen.add(r.html_url);
-      return true;
-    });
-
-    if (!repos.length) {
-      grid.textContent = "No projects yet. Add the topic '" + TOPIC + "' to a repo!";
-      return;
-    }
-
-    grid.innerHTML = repos.map(renderCard).join("");
-    setupCarousels();
   } catch (e) {
-    grid.textContent = "Could not load projects.";
+    console.error(e);
+    errors.push(e.message);
   }
+
+  // Classroom/organization repos
+  const others = await Promise.all(
+    EXTRA_REPOS.map(fullName =>
+      fetchJson(`https://api.github.com/repos/${fullName}`).catch(e => {
+        console.error(e);
+        errors.push(e.message);
+        return null;
+      })
+    )
+  );
+  repos = repos.concat(others);
+
+  // Drop failed lookups and duplicates
+  const seen = new Set();
+  repos = repos.filter(r => {
+    if (!r || !r.html_url || seen.has(r.html_url)) return false;
+    seen.add(r.html_url);
+    return true;
+  });
+
+  if (!repos.length) {
+    grid.textContent = errors.length
+      ? "Could not load projects: " + errors.join(" | ")
+      : "No projects yet. Add the topic '" + TOPIC + "' to a repo!";
+    return;
+  }
+
+  grid.innerHTML = repos.map(renderCard).join("");
+  setupCarousels();
 }
 loadProjects();
