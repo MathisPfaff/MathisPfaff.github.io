@@ -11,8 +11,8 @@ const EXTRA_REPOS = [
 // Extra info per repo (key = repo name). Both fields are optional.
 // Image paths are relative to your site, e.g. files in an "images" folder.
 const EXTRAS = {
-  "gameai-research-project-MathisPfaff": {
-    images: ["images/gameai-1.png", "images/gameai-2.png"]
+  "Prog4ProjectMathisPfaff" : {
+    images: ["images/DigDugTitle.svg"]
   }
 };
 const AUTO_SLIDE_MS = 3000; // set to 0 to disable auto-advance
