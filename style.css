@@ -32,7 +32,8 @@ footer { text-align:center; color:var(--muted); padding:2rem; }
   margin-bottom: 2rem;
 }
 
-.game-entry img {
+.game-entry img,
+.game-entry video {
   width: 40%;
   max-width: 400px;
   border-radius: 8px;
@@ -47,7 +48,8 @@ footer { text-align:center; color:var(--muted); padding:2rem; }
   .game-entry {
     flex-direction: column;
   }
-  .game-entry img {
+  .game-entry img,
+  .game-entry video {
     width: 100%;
     max-width: none;
   }
