@@ -24,3 +24,31 @@ footer { text-align:center; color:var(--muted); padding:2rem; }
 .carousel-btn { position:absolute; top:50%; transform:translateY(-50%); background:rgba(0,0,0,.5); color:#fff; border:0; padding:.4rem .6rem; cursor:pointer; }
 .carousel-btn.prev { left:.25rem; }
 .carousel-btn.next { right:.25rem; }
+
+.game-entry {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+}
+
+.game-entry img {
+  width: 40%;
+  max-width: 400px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.game-text {
+  flex: 1;
+}
+
+@media (max-width: 600px) {
+  .game-entry {
+    flex-direction: column;
+  }
+  .game-entry img {
+    width: 100%;
+    max-width: none;
+  }
+}

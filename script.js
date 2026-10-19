@@ -40,9 +40,7 @@ function renderCard(r) {
         ${renderImages(extra.images, r.name)}
         <h3><a href="${r.html_url}" target="_blank">${r.name}</a></h3>
         <p>${r.description || "No description yet."}</p>
-        <p class="meta">${r.language || ""} ⭐ ${r.stargazers_count}
-          ${link ? ` • <a href="${link}" target="_blank">Live demo</a>` : ""}
-        </p>
+        ${link ? `<p class="meta"><a href="${link}" target="_blank">Live demo</a></p>` : ""}
       </div>`;
 }
 
