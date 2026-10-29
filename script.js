@@ -15,7 +15,7 @@ const EXTRAS = {
     images: ["images/DigDugTitle.svg"]
   }
 };
-const AUTO_SLIDE_MS = 3000; // set to 0 to disable auto-advance
+const AUTO_SLIDE_MS = 5000; // set to 0 to disable auto-advance
 // ====================
 
 const grid = document.getElementById("project-grid");
