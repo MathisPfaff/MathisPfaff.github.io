@@ -13,6 +13,9 @@ const EXTRA_REPOS = [
 const EXTRAS = {
   "Prog4ProjectMathisPfaff" : {
     images: ["images/DigDugTitle.svg"]
+  },
+  "gameai-research-project-MathisPfaff" : {
+    images: ["images/FreezeTag.gif"]
   }
 };
 const AUTO_SLIDE_MS = 5000; // set to 0 to disable auto-advance
